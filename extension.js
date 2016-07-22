@@ -5,7 +5,7 @@ function activate(context) {
 
     console.log('Congratulations, your extension "code-cg" is now active!');
 
-    var sendCommand = function ( port, command, callback) {
+    var sendCommand = function (port, command, callback) {
 
         var host = vscode.workspace.getConfiguration('cg')['host'];
 
@@ -35,7 +35,7 @@ function activate(context) {
         var editor = vscode.window.activeTextEditor;
         if (!editor) {
             vscode.window.showWarnMessage('No active file!');
-            return;
+            return data['valid'] = false;
         }
 
         var doc = editor.document;
@@ -44,17 +44,20 @@ function activate(context) {
         // console.log( "doc.filePath" );
         // console.log( doc.languageId );
         // Only if its a valid file; which means its also saved;
-        if (doc.languageId !== languageId) {
+        var data = {};
+        if (doc.languageId === languageId) {
             // vscode.window.showWarningMessage('Not a valid file!');
-            console.log("invalid language");
-            return "invalid language";
+            // console.log("invalid language");
+            data['valid'] = true;
+        } else {
+            return data['valid'] = false;
         }
 
         // warn if the file is dirty
         if (doc.isDirty) {
-            console.log("very dirty file")
+            // console.log("very dirty file")
             vscode.window.showWarningMessage('Save the file!');
-            return;
+            return data['valid'] = false;
         }
 
         var selText = doc.getText(editor.selection);
@@ -62,12 +65,10 @@ function activate(context) {
         var docText = doc.getText();
         console.log("docText: " + docText);
 
-        var data = {
-            "selText": doc.getText(editor.selection),
-            "docText": doc.getText()
-            // "filePath": doc.filePath
-        }
+        data["selText"] = doc.getText(editor.selection),
+        data["docText"] = doc.getText()
 
+        return data;
         //  if anything selected;
         // TODO: simplify this one
         // if (selText.length !== 0) {
@@ -89,7 +90,7 @@ function activate(context) {
         //         // return text;
         //     }
         // }
-        return data;
+        // return data;
     }
 
     // maya: python - mel
@@ -100,31 +101,33 @@ function activate(context) {
         // console.log(languages);
 
         for (var languageId in languages) {
+
             var data = getData(languageId)
             console.log("data: " + data);
             var port = languages[languageId];
             console.log("port: " + port)
-            if (data === "invalid language"){
+
+            if (data.valid === false) {
+                vscode.window.showInformationMessage('NO valid language found!');
                 console.log("No valid language found!");
                 return;
-            }else if (data.selText.length === 0 ) {
+            } else if (data.selText.length === 0) {
                 var command = data.selText;
-            }else{
+            } else if (data.docText.length !== 0) {
                 var command = data.docText;
                 console.log("found command");
                 console.log(command);
             }
 
-        sendCommand( port, command, function (err, data) {
-            console.log("error: " + err);
-            console.log("data: " + data);
-            if (!err) {
-                vscode.window.showInformationMessage('Executed in Maya!');
-            } else {
-                vscode.window.showWarningMessage('Failed to execute in Maya!');
-            }
-        }
- )
+            sendCommand(port, command, function (err, data) {
+                console.log("error: " + err);
+                console.log("data: " + data);
+                if (!err) {
+                    vscode.window.showInformationMessage('Executed in Maya!');
+                } else {
+                    vscode.window.showWarningMessage('Failed to execute in Maya!');
+                }
+            })
             // if (code !== "invalid language") {
             //     var port = languages[languageId];
             //     sendCommand(software, code, port, function (err, success) {
