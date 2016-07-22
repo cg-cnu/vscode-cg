@@ -61,24 +61,24 @@
             "title": "Cg Configuration",
             "properties": {
                 "cg.host":  {
+                    "description": "Global host name",
                     "type": "string",
-                    "default": "localhost",
-                    "description": "All application host name"
+                    "default": "localhost"
                 },
-                "maya.python-port":    {
-                    "type": "integer",
-                    "default": 7002,
-                    "description": "Maya Command port number"
+                "cg.softwares": {
+                    "description": "All the integrated softwares: maya, mari",
+                    "type": "array",
+                    "default": ["maya", "mari"]
                 },
-                "maya.mel-port":    {
-                    "type": "integer",
-                    "default": 7001,
-                    "description": "Maya Command port number"
+                "maya.languages": {
+                    "description": "Maya command port language : portNumber",
+                    "type": "object",
+                    "default": { "python": 7002, "mel": 7001 }
                 },
-                "mari.port":    {
-                    "type": "integer",
-                    "default": 6100,
-                    "description": "Mari default command port number"
+                "mari.languages":    {
+                    "description": "Mari command port type : number",
+                    "type": "object",
+                    "default": {"python": 6100}
                 }
             }
         },
