@@ -1,40 +1,45 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 var vscode = require('vscode');
 var net = require('net');
 
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
 function activate(context) {
 
-    // Use the console to output diagnostic information (console.log) and errors (console.error)
-    // This line of code will only be executed once when your extension is activated
-    console.log('Congratulations, your extension "vscode-maya" is now active!');
+    console.log('Congratulations, your extension "code-cg" is now active!');
 
-    // The command has been defined in the package.json file
-    // Now provide the implementation of the command with  registerCommand
-    // The commandId parameter must match the command field in package.json
-    var disposable = vscode.commands.registerCommand('extension.sayHello', function () {
-        // The code you place here will be executed every time your command is executed
+    var sendCmd = function (HOST, PORT, COMMAND, callback) {
 
-        // read the values from a different config file
-        // if the config file is not present make this as the default
-        var HOST = '127.0.0.1';
-        var PORT = 7002;
+        client = net.connect({ port: PORT, host: HOST }, function () {
+            console.log('CONNECTED TO: ' + HOST + ':' + PORT);
+            client.write('\n ' + COMMAND + ' \n');
+        });
 
-        // // Get the current text editor
+        // on success
+        client.on('data', function (data) {
+            console.log('DATA: ' + data);
+            // Close the client socket completely: end / destroy ?
+            client.destroy();
+            callback(null, data);
+        });
+
+        // on error
+        client.on('error', function (err) {
+            callback(err, null)
+        })
+    }
+
+
+    var getCode = function (languageId) {
+
         var editor = vscode.window.activeTextEditor;
         if (!editor) {
             vscode.window.showWarnMessage('No active file!');
             return;
         }
 
-        // then get the document
         var doc = editor.document;
 
-        // Only if its a valid python file; which means its also saved;
-        if (doc.languageId !== "python") {
-            vscode.window.showWarningMessage('Save the file!');
+        // Only if its a valid file; which means its also saved;
+        if (doc.languageId !== languageId) {
+            vscode.window.showWarningMessage('Not a valid file!');
             return;
         }
 
@@ -45,51 +50,80 @@ function activate(context) {
         }
 
         var selText = doc.getText(editor.selection);
+
         //  if anything selected;
+        // TODO: simplify this one
         if (selText.length !== 0) {
             var text = selText;
-        // if nothing selected
+            // if nothing selected
         } else {
             // else get all the text in the document
             var docText = doc.getText();
             // if the file is empty
+            // TODO: better comparision find out what exactly does docText is
             if (docText === "") {
                 vscode.window.showWarningMessage('No text in the file!');
-                return;
-            }else{
+                return null;
+            } else {
                 var text = docText
+                return text;
             }
+        };
+    }
+
+    // maya: python - mel
+    var sendToMaya = vscode.commands.registerCommand('extension.sendToMaya', function () {
+        // The code you place here will be executed every time your command is executed
+
+        // read the values from the config file
+        var HOST = vscode.workspace.getConfiguration('cg')['host'];
+        var PORT = vscode.workspace.getConfiguration('maya')['python-port'];
+        // get the python code from the current file
+        // either selected or all
+
+        var COMMAND, PORT = getCode('python');
+
+        // try for mel ?
+
+        if (COMMAND) {
+            sendCmd(HOST, PORT, COMMAND, function (err, success) {
+                console.log(err);
+                console.log(success);
+                if (!err) {
+                    vscode.window.showInformationMessage('Executed in Maya!');
+                } else {
+                    vscode.window.showWarningMessage('Failed to execute in Maya!');
+                }
+            });
         }
-
-        // write to maya
-        var client = new net.Socket();
-        client.connect(PORT, HOST, function () {
-
-            console.log('CONNECTED TO: ' + HOST + ':' + PORT);
-            // Write a message to the socket as soon as the client is connected, the server will receive it as message from the client
-            client.write('\n' + text + '\n');
-        });
-
-        // Add a 'data' event handler for the client socket
-        // data is what the server sent to this socket
-        client.on('data', function (data) {
-            console.log('DATA: ' + data);
-            // Close the client socket completely
-            client.destroy();
-        });
-
-        // Add a 'close' event handler for the client socket
-        client.on('close', function () {
-            console.log('Connection closed');
-        });
-
-        // Display a message box to the user
-        vscode.window.showInformationMessage('Hello World!');
-        //
-
     });
 
-    context.subscriptions.push(disposable);
+    context.subscriptions.push(sendToMaya);
+
+    // mari: python
+    var sendToMari = vscode.commands.registerCommand('extension.sendToMari', function () {
+        // The code you place here will be executed every time your command is executed
+
+        // read the values from a different config file
+        // if the config file is not present make this as the default
+        var HOST = vscode.workspace.getConfiguration('cg')['host'];
+        var PORT = vscode.workspace.getConfiguration('mari')['port'];
+        var COMMAND = getPyCode()
+
+        if (COMMAND) {
+            COMMAND += " \x04"
+            sendCmd(HOST, PORT, COMMAND, function (err, success) {
+                if (!err) {
+                    vscode.window.showInformationMessage('Executed in Mari!');
+                } else {
+                    vscode.window.showWarningMessage('Failed to execute in Mari!');
+                }
+            });
+        }
+    });
+
+    context.subscriptions.push(sendToMari);
+
 }
 exports.activate = activate;
 

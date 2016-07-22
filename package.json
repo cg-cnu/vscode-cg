@@ -3,7 +3,26 @@
     "displayName": "vscode-maya",
     "description": "",
     "version": "0.0.1",
-    "publisher": "sreenivas",
+    "publisher": "cg-cnu",
+    "author": {
+        "name": "Sreenivas Alapati"
+    },
+    "icon": "images/icon.png",
+    "bugs":{
+        "url": "link to github"
+    },
+    "homepage": "link to github",
+    "keywords": [
+        "autodesk",
+        "maya",
+        "foundry",
+        "mari"
+    ],
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "my github repo link"
+    },
     "engines": {
         "vscode": "^1.0.0"
     },
@@ -11,13 +30,66 @@
         "Other"
     ],
     "activationEvents": [
-        "onCommand:extension.sayHello"
+        "onCommand:extension.sendToMaya",
+        "onCommand:extension.sendToMari"
     ],
     "main": "./extension",
     "contributes": {
+        "languages": [
+            {
+                "id": "mel",
+                "extensions": [
+                    ".mel"
+                ],
+                "aliases": [
+                    "MEL",
+                    "Mel",
+                    "mel"
+                ],
+                "configuration": "./mel.configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "mel",
+                "scopeName": "source.mel",
+                "path": "./syntaxes/MEL.plist"
+            }
+        ],
+        "configuration": {
+            "type": "object",
+            "title": "Cg Configuration",
+            "properties": {
+                "cg.host":  {
+                    "type": "string",
+                    "default": "localhost",
+                    "description": "All application host name"
+                },
+                "maya.python-port":    {
+                    "type": "integer",
+                    "default": 7002,
+                    "description": "Maya Command port number"
+                },
+                "maya.mel-port":    {
+                    "type": "integer",
+                    "default": 7001,
+                    "description": "Maya Command port number"
+                },
+                "mari.port":    {
+                    "type": "integer",
+                    "default": 6100,
+                    "description": "Mari default command port number"
+                }
+            }
+        },
         "commands": [{
-            "command": "extension.sayHello",
-            "title": "Hello World"
+            "command": "extension.sendToMaya",
+            "title": "Maya",
+            "icon": "images/maya.png"
+        },{
+            "command": "extension.sendToMari",
+            "title": "Mari",
+            "icon": "images/mari.png"
         }]
     },
     "scripts": {
