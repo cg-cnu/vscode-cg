@@ -1,7 +1,7 @@
 {
-    "name": "vscode-maya",
-    "displayName": "vscode-maya",
-    "description": "",
+    "name": "code-cg",
+    "displayName": "code-cg",
+    "description": "A Microsoft Visual Studio Code extention for all animation & vfx softwares.",
     "version": "0.0.1",
     "publisher": "cg-cnu",
     "author": {
@@ -13,10 +13,17 @@
     },
     "homepage": "link to github",
     "keywords": [
+        "python",
         "autodesk",
         "maya",
+        "mel",
         "foundry",
-        "mari"
+        "mari",
+        "cg",
+        "graphics",
+        "animation",
+        "vfx",
+        "blender"
     ],
     "license": "MIT",
     "repository": {
