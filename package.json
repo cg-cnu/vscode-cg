@@ -1,11 +1,12 @@
 {
     "name": "code-cg",
-    "displayName": "code-cg",
-    "description": "A Microsoft Visual Studio Code extention for all animation & vfx softwares.",
+    "displayName": "Code CG",
+    "description": "A Microsoft Visual Studio Code extention for animation, vfx and gaming softwares.",
     "version": "0.0.1",
     "publisher": "cg-cnu",
     "author": {
-        "name": "Sreenivas Alapati"
+        "name": "Sreenivas Alapati",
+        "email": "sreenivas9alapati@gmail.com"
     },
     "icon": "images/icon.png",
     "bugs":{
@@ -14,16 +15,16 @@
     "homepage": "link to github",
     "keywords": [
         "python",
+        "mel",
         "autodesk",
         "maya",
-        "mel",
         "foundry",
         "mari",
         "cg",
-        "graphics",
+        "computer graphics",
         "animation",
         "vfx",
-        "blender"
+        "gaming"
     ],
     "license": "MIT",
     "repository": {

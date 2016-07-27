@@ -4,7 +4,7 @@ var net = require('net');
 function activate(context) {
 
     console.log('Congratulations, your extension "code-cg" is now active!');
-
+    // var app =
     var sendCommand = function (port, command, callback) {
 
         var host = vscode.workspace.getConfiguration('cg')['host'];
