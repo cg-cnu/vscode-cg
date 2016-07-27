@@ -16,10 +16,10 @@ function activate(context) {
         var mayaEditor = new editor('maya');
         var languageId = mayaEditor.languageId;
         if (mayaEditor.selText) {
-            // console.log(mayaEditor.selText);
+            console.log(mayaEditor.selText);
             var command = mayaEditor.selText;
         } else if (mayaEditor.docText) {
-            // console.log(mayaEditor.docText);
+            console.log(mayaEditor.docText);
             var command = mayaEditor.docText;
         }
         // var command = "print 'test' ";

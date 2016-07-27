@@ -12,7 +12,7 @@ var Editor = function (appName) {
     // get the document
     var doc = codeEditor.document;
     var languages = vscode.workspace.getConfiguration(appName)["languages"];
-    console.log(languages)
+    // console.log(languages)
     for (var languageId in languages) {
         if (doc.languageId == languageId) {
             // if the document is not saved warn and return
