@@ -2,34 +2,37 @@ var vscode = require("vscode");
 
 var Editor = function (appName) {
 
-    console.log("entered get Text")
-    // if no editor found throw error and return
-    var editor = vscode.window.activeTextEditor;
-    if (!editor) {
+    // if no editor found warn and return
+    var codeEditor = vscode.window.activeTextEditor;
+    if (!codeEditor) {
         vscode.window.showWarningMessage('No active file!');
         return;
     }
 
-    var doc = editor.document;
+    // get the document
+    var doc = codeEditor.document;
     var languages = vscode.workspace.getConfiguration(appName)["languages"];
-
+    console.log(languages)
     for (var languageId in languages) {
         if (doc.languageId == languageId) {
+            // if the document is not saved warn and return
             if (doc.isDirty) {
                 // console.log("very dirty file")
                 vscode.window.showWarningMessage('Save the file!');
                 return
             }else{
-                // var data = {}
-                this.selText = doc.getText(editor.selection);
+                this.languageId = languageId;
+                this.selText = doc.getText(codeEditor.selection);
                 this.docText = doc.getText();
                 this.filePath = "currentFilePath";
-                // return data
+                return
             }
         }else{
-            console.log("not a valid language")
+            console.log(languageId);
+            console.log(languageId + ": Not a valid language!")
         }
     }
+    vscode.window.showWarningMessage('No valid language found!');
 }
 
 module.exports = Editor;

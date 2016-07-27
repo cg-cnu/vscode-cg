@@ -1,8 +1,6 @@
-print "test with config2 ere erer sdfdf with fdf dfdfunc sep mari "
+print "test 24 "
 
-import os
+import maya.cmds as cmds
+print cmds.ls()
 
-print os.getcwd()
-
-
-print "test"
+print "test 48"

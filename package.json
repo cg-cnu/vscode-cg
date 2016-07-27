@@ -81,7 +81,7 @@
                 "maya.languages": {
                     "description": "Maya command port language : portNumber",
                     "type": "object",
-                    "default": { "python": 7002, "mel": 7001 }
+                    "default": { "python": 7001, "mel": 7002 }
                 },
                 "mari.languages":    {
                     "description": "Mari command port type : number",
