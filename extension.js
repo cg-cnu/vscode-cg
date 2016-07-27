@@ -1,31 +1,35 @@
 var vscode = require('vscode');
 var net = require('net');
 
+var app = require('./app');
+var editor = require('./editor');
+
 function activate(context) {
 
-    console.log('Congratulations, your extension "code-cg" is now active!');
-    // var app =
-    var sendCommand = function (port, command, callback) {
+    console.log('Congratulations! "code-cg" is now active!\
+                    Enjoy coding cg apps!');
 
-        var host = vscode.workspace.getConfiguration('cg')['host'];
+    // var sendCommand = function (port, command, callback) {
 
-        client = net.connect({ port: port, host: host }, function () {
-            console.log('CONNECTED TO: ' + host + ':' + port);
-            client.write('\n ' + command + ' \n');
-        });
+    //     var host = vscode.workspace.getConfiguration('cg')['host'];
 
-        // on success
-        client.on('data', function (data) {
-            // Close the client socket completely: end / destroy ?
-            client.destroy();
-            callback(null, data);
-        });
+    //     client = net.connect({ port: port, host: host }, function () {
+    //         console.log('CONNECTED TO: ' + host + ':' + port);
+    //         client.write('\n ' + command + ' \n');
+    //     });
 
-        // on error
-        client.on('error', function (err) {
-            callback(err, null)
-        })
-    }
+    //     // on success
+    //     client.on('data', function (data) {
+    //         // Close the client socket completely: end / destroy ?
+    //         client.destroy();
+    //         callback(null, data);
+    //     });
+
+    //     // on error
+    //     client.on('error', function (err) {
+    //         callback(err, null)
+    //     })
+    // }
 
     // Given the languageId returns the selected or whole code
     var getData = function (languageId) {
@@ -96,38 +100,58 @@ function activate(context) {
     // maya: python - mel
     var sendToMaya = vscode.commands.registerCommand('extension.sendToMaya', function () {
 
-        var software = 'maya';
-        var languages = vscode.workspace.getConfiguration('maya')['languages'];
-        // console.log(languages);
+        var maya = new app('maya', 'python');
+        var mayaEditor = new editor('maya');
+        // var command = "print 'test' ";
+        if (mayaEditor.selText){
+            console.log(mayaEditor.selText);
+            var command = mayaEditor.selText;
+        }else{
+            console.log(mayaEditor.docText);
+            var command = mayaEditor.docText;
+        }
 
-        for (var languageId in languages) {
-
-            var data = getData(languageId)
-            console.log("data: " + data);
-            var port = languages[languageId];
-            console.log("port: " + port)
-
-            if (data.valid === false) {
-                vscode.window.showInformationMessage('NO valid language found!');
-                console.log("No valid language found!");
-                return;
-            } else if (data.selText.length === 0) {
-                var command = data.selText;
-            } else if (data.docText.length !== 0) {
-                var command = data.docText;
-                console.log("found command");
-                console.log(command);
+        maya.send(command, function (err, data) {
+            if (err){
+                console.log(err)
             }
+        });
 
-            sendCommand(port, command, function (err, data) {
-                console.log("error: " + err);
-                console.log("data: " + data);
-                if (!err) {
-                    vscode.window.showInformationMessage('Executed in Maya!');
-                } else {
-                    vscode.window.showWarningMessage('Failed to execute in Maya!');
-                }
-            })
+        // var software = 'maya';
+        // var languages = vscode.workspace.getConfiguration('maya')['languages'];
+        // console.log(languages);
+        // var portNum = vscode.workspace.getConfiguration('maya')['languages']['mel'];
+        // console.log("portNum");
+        // console.log(portNum);
+
+        // for (var languageId in languages) {
+
+        //     var data = getData(languageId)
+        //     console.log("data: " + data);
+        //     var port = languages[languageId];
+        //     console.log("port: " + port)
+
+        //     if (data.valid === false) {
+        //         vscode.window.showInformationMessage('NO valid language found!');
+        //         console.log("No valid language found!");
+        //         return;
+        //     } else if (data.selText.length === 0) {
+        //         var command = data.selText;
+        //     } else if (data.docText.length !== 0) {
+        //         var command = data.docText;
+        //         console.log("found command");
+        //         console.log(command);
+        //     }
+
+        //     sendCommand(port, command, function (err, data) {
+        //         console.log("error: " + err);
+        //         console.log("data: " + data);
+        //         if (!err) {
+        //             vscode.window.showInformationMessage('Executed in Maya!');
+        //         } else {
+        //             vscode.window.showWarningMessage('Failed to execute in Maya!');
+        //         }
+        //     })
             // if (code !== "invalid language") {
             //     var port = languages[languageId];
             //     sendCommand(software, code, port, function (err, success) {
@@ -140,7 +164,7 @@ function activate(context) {
             //         }
             //     });
             // }
-        }
+        // }
     });
 
     context.subscriptions.push(sendToMaya);
