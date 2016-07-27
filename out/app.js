@@ -12,7 +12,7 @@ var App = function (name) {
             console.log('CONNECTED TO: ' + host + ':' + port); // host and port showing undef ?
             client.write(command);
         });
-        // on success
+        // on successs
         client.on('data', function (data) {
             console.log(data);
             client.destroy(); // end / destroy ?

@@ -1,0 +1,11 @@
+
+ls;
+select "pCube1"
+string  $allObjects[];
+string  $obj;
+$allObjects = `ls -l`;
+for ( $obj in $allObjects ) {
+    if ( `nodeType $obj` == "surfaceShape" ) {
+        print ($obj + "\n");
+    }
+}

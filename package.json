@@ -42,7 +42,7 @@
         "onCommand:extension.sendToMari",
         "onCommand:extension.sendToNuke"
     ],
-    "main": "./extension",
+    "main": "./out/extension",
     "contributes": {
         "languages": [
             {
@@ -55,19 +55,19 @@
                     "Mel",
                     "mel"
                 ],
-                "configuration": "./mel.configuration.json"
+                "configuration": "./languages/mel.configuration.json"
             }
         ],
         "grammars": [
             {
                 "language": "mel",
                 "scopeName": "source.mel",
-                "path": "./syntaxes/MEL.plist"
+                "path": "./grammars/MEL.plist"
             }
         ],
         "configuration": {
             "type": "object",
-            "title": "Cg Configuration",
+            "title": "Configuration for Code-Cg",
             "properties": {
                 "cg.host":  {
                     "description": "Global host name",
