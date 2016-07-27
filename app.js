@@ -10,10 +10,11 @@ var App = function (name) {
         port = vscode.workspace.getConfiguration(this.name)["languages"][languageId];
         client = net.connect({ port: port, host: host }, function () {
             console.log('CONNECTED TO: ' + host + ':' + port); // host and port showing undef ?
-            client.write('\n ' + command + ' \n');
+            client.write(command);
         });
         // on success
         client.on('data', function (data) {
+            console.log(data);
             client.destroy(); // end / destroy ?
             callback(null, data);
         });

@@ -1,18 +1,18 @@
 {
     "name": "code-cg",
     "displayName": "Code CG",
-    "description": "A Microsoft Visual Studio Code extention for animation, vfx and gaming softwares.",
+    "description": "A Microsoft Visual Studio Code extension for Animation, VFX and Gaming softwares.",
     "version": "0.0.1",
     "publisher": "cg-cnu",
     "author": {
         "name": "Sreenivas Alapati",
         "email": "sreenivas9alapati@gmail.com"
     },
-    "icon": "images/icon.png",
+    "icon": "images/code-cg.png",
     "bugs":{
-        "url": "link to github"
+        "url": "https://github.com/cg-cnu/code-cg/issues"
     },
-    "homepage": "link to github",
+    "homepage": "https://github.com/cg-cnu/code-cg",
     "keywords": [
         "python",
         "mel",
@@ -29,7 +29,7 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "my github repo link"
+        "url": "https://github.com/cg-cnu/code-cg"
     },
     "engines": {
         "vscode": "^1.0.0"
@@ -39,7 +39,8 @@
     ],
     "activationEvents": [
         "onCommand:extension.sendToMaya",
-        "onCommand:extension.sendToMari"
+        "onCommand:extension.sendToMari",
+        "onCommand:extension.sendToNuke"
     ],
     "main": "./extension",
     "contributes": {
@@ -79,14 +80,24 @@
                     "default": ["maya", "mari"]
                 },
                 "maya.languages": {
-                    "description": "Maya command port language : portNumber",
+                    "description": "Maya command port {language : portNumber}",
                     "type": "object",
                     "default": { "python": 7001, "mel": 7002 }
                 },
                 "mari.languages":    {
-                    "description": "Mari command port type : number",
+                    "description": "Mari command port {language : portNumber}",
                     "type": "object",
                     "default": {"python": 6100}
+                },
+                "houdini.languages":    {
+                    "description": "Houdini command port {language : portNumber}",
+                    "type": "object",
+                    "default": {"python": 18811}
+                },
+                "nuke.languages":    {
+                    "description": "Nuke command port {language : portNumber}",
+                    "type": "object",
+                    "default": {"python": 7024}
                 }
             }
         },
@@ -98,6 +109,14 @@
             "command": "extension.sendToMari",
             "title": "Mari",
             "icon": "images/mari.png"
+        },{
+            "command": "extension.sendToHoudini",
+            "title": "Houdini",
+            "icon": "images/houdini.png"
+        },{
+            "command": "extension.sendToNuke",
+            "title": "Nuke",
+            "icon": "images/nuke.png"
         }]
     },
     "scripts": {

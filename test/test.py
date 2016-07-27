@@ -1,8 +1,6 @@
-print "test 24 "
 
-import maya.cmds as cmds
-print cmds.ls()
+import os
+os.getcwd()
 
-terere 
-
+print "test 24"
 print "test 48"
