@@ -39,8 +39,7 @@
     ],
     "activationEvents": [
         "onCommand:extension.sendToMaya",
-        "onCommand:extension.sendToMari",
-        "onCommand:extension.sendToNuke"
+        "onCommand:extension.sendToMari"
     ],
     "main": "./out/extension",
     "contributes": {
@@ -88,16 +87,6 @@
                     "description": "Mari command port {language : portNumber}",
                     "type": "object",
                     "default": {"python": 6100}
-                },
-                "houdini.languages":    {
-                    "description": "Houdini command port {language : portNumber}",
-                    "type": "object",
-                    "default": {"python": 18811}
-                },
-                "nuke.languages":    {
-                    "description": "Nuke command port {language : portNumber}",
-                    "type": "object",
-                    "default": {"python": 7024}
                 }
             }
         },
@@ -109,14 +98,6 @@
             "command": "extension.sendToMari",
             "title": "Mari",
             "icon": "images/mari.png"
-        },{
-            "command": "extension.sendToHoudini",
-            "title": "Houdini",
-            "icon": "images/houdini.png"
-        },{
-            "command": "extension.sendToNuke",
-            "title": "Nuke",
-            "icon": "images/nuke.png"
         }]
     },
     "scripts": {

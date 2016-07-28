@@ -4,10 +4,10 @@ var net = require('net');
 var app = require('./app');
 var editor = require('./editor');
 
+// this method is called when your extension is activated
 function activate(context) {
 
-    console.log('Congratulations! "code-cg" is now active!\
-                    Enjoy coding cg apps!');
+    console.log('Congratulations! "code-cg" is now active! Enjoy coding cg apps!');
 
     // maya: python - mel
     var sendToMaya = vscode.commands.registerCommand('extension.sendToMaya', function () {
@@ -17,10 +17,8 @@ function activate(context) {
         var languageId = mayaEditor.languageId;
 
         if (mayaEditor.selText) {
-            console.log(mayaEditor.selText);
             var command = mayaEditor.selText;
         } else if (mayaEditor.docText) {
-            console.log(mayaEditor.docText);
             var command = mayaEditor.docText;
         }
 
@@ -45,10 +43,8 @@ function activate(context) {
         var languageId = mariEditor.languageId;
 
         if (mariEditor.selText) {
-            console.log(mariEditor.selText);
             var command = mariEditor.selText;
         } else if (mariEditor.docText) {
-            console.log(mariEditor.docText);
             var command = mariEditor.docText;
         }
 
@@ -64,53 +60,6 @@ function activate(context) {
         }
     });
     context.subscriptions.push(sendToMari);
-
-    // Nuke: python
-    var sendToNuke = vscode.commands.registerCommand('extension.sendToNuke', function () {
-
-        var nuke = new app('nuke');
-        var nukeEditor = new editor('nuke');
-        var languageId = nukeEditor.languageId;
-
-        // TODO: replace this with command = ( nukeEditor.selText || nukeEditor.docText || null )
-        if (nukeEditor.selText) {
-            console.log(nukeEditor.selText);
-            var command = nukeEditor.selText;
-        } else if (nukeEditor.docText) {
-            console.log(nukeEditor.docText);
-            var command = nukeEditor.docText;
-        }
-
-        if (command) {
-            var PY_CMD_TEMPLATE =
-                    "\
-                    import traceback\
-                    import sys\
-                    import __main__\
-                    namespace = __main__.__dict__.get('_atom_plugin_SendToNuke')\
-                    if not namespace:\
-                        namespace = __main__.__dict__.copy()\
-                        __main__.__dict__['_atom_plugin_SendToNuke'] = namespace\
-                    namespace['__file__'] = r\'/home/salapati/codemonk/code-cg/test/test.py\'\
-                    try:\
-                        execfile(r\'/home/salapati/codemonk/code-cg/test/test.py\', namespace, namespace)\
-                    except:\
-                        sys.stdout.write(traceback.format_exc())\
-                        traceback.print_exc()\
-                    "
-
-            command = PY_CMD_TEMPLATE
-            console.log(command)
-            nuke.send(command, languageId, function (err, success) {
-                if (!err) {
-                    vscode.window.showInformationMessage('Executed in Nuke!');
-                } else {
-                    vscode.window.showWarningMessage('Failed to execute in Nuke!');
-                }
-            });
-        }
-    });
-    context.subscriptions.push(sendToNuke);
 
 }
 exports.activate = activate;

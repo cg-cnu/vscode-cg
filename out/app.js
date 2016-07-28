@@ -20,9 +20,9 @@ var App = function (name) {
         });
         // on error
         client.on('error', function (err) {
-            callback(err, null)
-        })
-    }
+            callback(err, null);
+        });
+    };
 };
 
 // module.exports.test = test;
