@@ -10,7 +10,10 @@ function activate(context) {
     console.log('Congratulations! "code-cg" is now active! Enjoy coding cg apps!');
 
     // maya: python - mel
-    var sendToMaya = vscode.commands.registerCommand('extension.sendToMaya', function () {
+    // TODO //
+    // strip comments
+    // execute in seperate name space
+    var execInMaya = vscode.commands.registerCommand('extension.execInMaya', function () {
 
         var maya = new app('maya');
         var mayaEditor = new editor('maya');
@@ -27,13 +30,15 @@ function activate(context) {
                 if (!err) {
                     vscode.window.showInformationMessage('Executed in Maya!');
                 } else {
+                    console.log(err)
+                    vscode.window.showWarningMessage(err);
                     vscode.window.showWarningMessage('Failed to execute in Maya!');
                 }
             });
         }
     });
 
-    context.subscriptions.push(sendToMaya);
+    context.subscriptions.push(execInMaya);
 
     // mari: python
     var sendToMari = vscode.commands.registerCommand('extension.sendToMari', function () {

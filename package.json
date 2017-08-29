@@ -3,7 +3,7 @@
     "displayName": "Code CG",
     "description": "A Microsoft Visual Studio Code extension for Animation, VFX and Gaming softwares.",
     "version": "0.0.1",
-    "publisher": "cg-cnu",
+    "publisher": "Sreenivas Alapati",
     "author": {
         "name": "Sreenivas Alapati",
         "email": "sreenivas9alapati@gmail.com"
@@ -38,7 +38,7 @@
         "Other"
     ],
     "activationEvents": [
-        "onCommand:extension.sendToMaya",
+        "onCommand:extension.execInMaya",
         "onCommand:extension.sendToMari"
     ],
     "main": "./out/extension",
@@ -81,7 +81,7 @@
                 "maya.languages": {
                     "description": "Maya command port {language : portNumber}",
                     "type": "object",
-                    "default": { "python": 7001, "mel": 7002 }
+                    "default": { "python": 7002, "mel": 7001 }
                 },
                 "mari.languages":    {
                     "description": "Mari command port {language : portNumber}",
@@ -91,7 +91,7 @@
             }
         },
         "commands": [{
-            "command": "extension.sendToMaya",
+            "command": "extension.execInMaya",
             "title": "Maya",
             "icon": "images/maya.png"
         },{
