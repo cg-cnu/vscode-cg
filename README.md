@@ -1,6 +1,10 @@
-# CODE CG
+<p align="center">
+  <img src="./images/vscode-cg-512.png" height="150px"/>
+  <h1 align="center">CG</h1>
+  <h4 align="center">A VS Code extension for animation, VFX and gaming softwares</h4>
+  <br>
+</p>
 
-An extension for [Microsoft Visual Studio Code](https://code.visualstudio.com/) with support for Animation, VFX and gaming softwares.
 
 ## Feature Details:
 
