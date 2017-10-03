@@ -4,15 +4,14 @@ var net = require('net');
 var app = require('./app');
 var editor = require('./editor');
 
-// this method is called when your extension is activated
 function activate(context) {
 
     console.log('Congratulations! "code-cg" is now active! Enjoy coding cg apps!');
 
-    // maya: python - mel
-    // TODO //
+    // TODO: //
     // strip comments
     // execute in seperate name space
+    // maya: python - mel
     var execInMaya = vscode.commands.registerCommand('extension.execInMaya', function () {
 
         var maya = new app('maya');
@@ -69,7 +68,6 @@ function activate(context) {
 }
 exports.activate = activate;
 
-// this method is called when your extension is deactivated
 function deactivate() {
 }
 exports.deactivate = deactivate;

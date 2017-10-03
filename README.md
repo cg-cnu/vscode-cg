@@ -1,7 +1,7 @@
 <p align="center">
   <img src="./images/vscode-cg-512.png" height="150px"/>
   <h1 align="center">CG</h1>
-  <h4 align="center">A VS Code extension for animation, VFX and gaming softwares</h4>
+  <h4 align="center">A VSCode extension for animation, VFX and gaming softwares</h4>
   <br>
 </p>
 
