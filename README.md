@@ -1,10 +1,9 @@
 <p align="center">
   <img src="./images/vscode-cg-512.png" height="150px"/>
-  <h1 align="center">CG</h1>
+  <h1 align="center">Code CG</h1>
   <h4 align="center">A VSCode extension for animation, VFX and gaming softwares</h4>
   <br>
 </p>
-
 
 ## Feature Details:
 
@@ -19,17 +18,10 @@
 
 * Install the extension
 
-## Issues and Feature Requests:
+### Issue/Feedback:
 
-* Contributions are always welcome.
-* Any and all feedback is appreciated and welcome.
-  + Please feel free to [add suggestions here](https://github.com/cg-cnu/code-cg/issues)
+log them in the [github issues](https://github.com/cg-cnu/vscode-codecg/issues) or hit me on [twitter](https://twitter.com/CgCnu).
 
-## Change Log
-[Releases](https://github.com/cg-cnu/code-cg/releases)
+### Like it?:
 
-## Source
-[GitHub](https://github.com/cg-cnu/code-cg)
-
-## License
-[MIT](https://github.com/cg-cnu/code-cg/issues/master/LICENSE)
+:star: this repo.
