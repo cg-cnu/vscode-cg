@@ -3,7 +3,7 @@
     "displayName": "Code CG",
     "description": "A VSCode extension for Animation, VFX and Gaming softwares.",
     "version": "0.0.1",
-    "publisher": "Sreenivas Alapati",
+    "publisher": "cg-cnu",
     "author": {
         "name": "Sreenivas Alapati",
         "email": "sreenivas9alapati@gmail.com",
@@ -23,15 +23,9 @@
     "keywords": [
         "python",
         "mel",
-        "autodesk",
         "maya",
-        "foundry",
         "mari",
-        "cg",
-        "computer graphics",
-        "animation",
-        "vfx",
-        "gaming"
+        "animation"
     ],
     "license": "MIT",
     "repository": {
