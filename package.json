@@ -1,16 +1,23 @@
 {
     "name": "code-cg",
     "displayName": "Code CG",
-    "description": "A Microsoft Visual Studio Code extension for Animation, VFX and Gaming softwares.",
+    "description": "A VSCode extension for Animation, VFX and Gaming softwares.",
     "version": "0.0.1",
     "publisher": "Sreenivas Alapati",
     "author": {
         "name": "Sreenivas Alapati",
-        "email": "sreenivas9alapati@gmail.com"
+        "email": "sreenivas9alapati@gmail.com",
+        "url": "https://twitter.com/CgCnu"
     },
-    "icon": "images/code-cg.png",
-    "bugs":{
-        "url": "https://github.com/cg-cnu/code-cg/issues"
+    "readme": "README.md",
+    "galleryBanner": {
+        "color": "",
+        "theme": "dark"
+    },
+    "icon": "images/vscode-cg-128.png",
+    "bugs": {
+        "url": "https://github.com/cg-cnu/code-cg/issues",
+        "email": "sreenivas9alapati@gmail.com"
     },
     "homepage": "https://github.com/cg-cnu/code-cg",
     "keywords": [
@@ -68,7 +75,7 @@
             "type": "object",
             "title": "Configuration for Code-Cg",
             "properties": {
-                "cg.host":  {
+                "cg.host": {
                     "description": "Global host name",
                     "type": "string",
                     "default": "localhost"
@@ -76,29 +83,40 @@
                 "cg.softwares": {
                     "description": "All the integrated softwares: maya, mari",
                     "type": "array",
-                    "default": ["maya", "mari"]
+                    "default": [
+                        "maya",
+                        "mari"
+                    ]
                 },
                 "maya.languages": {
                     "description": "Maya command port {language : portNumber}",
                     "type": "object",
-                    "default": { "python": 7002, "mel": 7001 }
+                    "default": {
+                        "python": 7002,
+                        "mel": 7001
+                    }
                 },
-                "mari.languages":    {
+                "mari.languages": {
                     "description": "Mari command port {language : portNumber}",
                     "type": "object",
-                    "default": {"python": 6100}
+                    "default": {
+                        "python": 6100
+                    }
                 }
             }
         },
-        "commands": [{
-            "command": "extension.execInMaya",
-            "title": "Maya",
-            "icon": "images/maya.png"
-        },{
-            "command": "extension.sendToMari",
-            "title": "Mari",
-            "icon": "images/mari.png"
-        }]
+        "commands": [
+            {
+                "command": "extension.execInMaya",
+                "title": "Maya",
+                "icon": "images/maya.png"
+            },
+            {
+                "command": "extension.sendToMari",
+                "title": "Mari",
+                "icon": "images/mari.png"
+            }
+        ]
     },
     "scripts": {
         "postinstall": "node ./node_modules/vscode/bin/install"
