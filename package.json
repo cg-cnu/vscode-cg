@@ -11,7 +11,7 @@
     },
     "readme": "README.md",
     "galleryBanner": {
-        "color": "",
+        "color": "#1E1D1D",
         "theme": "dark"
     },
     "icon": "images/vscode-cg-128.png",
